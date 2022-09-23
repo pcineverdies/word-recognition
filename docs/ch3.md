@@ -8,76 +8,63 @@ The network we adopted is M5, which is implemented in Keras in [[2](https://gith
 class M5(nn.Module):
     def __init__(self, n_input=1, n_output=35, stride=16, n_channel=32):
         super().__init__()
-
         self.conv1 = nn.Conv1d(n_input, n_channel, kernel_size=80, stride=stride)
-
         self.bn1 = nn.BatchNorm1d(n_channel)
-
         self.pool1 = nn.MaxPool1d(4)
-
         self.conv2 = nn.Conv1d(n_channel, n_channel, kernel_size=3)
-
         self.bn2 = nn.BatchNorm1d(n_channel)
-
         self.pool2 = nn.MaxPool1d(4)
-
         self.conv3 = nn.Conv1d(n_channel, 2 * n_channel, kernel_size=3)
-
         self.bn3 = nn.BatchNorm1d(2 * n_channel)
-
         self.pool3 = nn.MaxPool1d(4)
-
         self.conv4 = nn.Conv1d(2 * n_channel, 2 * n_channel, kernel_size=3)
-
         self.bn4 = nn.BatchNorm1d(2 * n_channel)
-
         self.pool4 = nn.MaxPool1d(4)
-
         self.fc1 = nn.Linear(2 * n_channel, n_output)
 
     def forward(self, x):
 		# x.shape = (N, 1, 8000)
-        x = self.conv1(x)
+		x = self.conv1(x)
 		# x.shape = (N, 32, 496)
 		x = self.bn1(x)
 		# x.shape = (N, 32, 496)
-        x = F.relu(x)
+		x = F.relu(x)
 		# x.shape = (N, 32, 496)
-        x = self.pool1(x)
+		x = self.pool1(x)
 		# x.shape = (N, 32, 124)
-        x = self.conv2(x)
+		x = self.conv2(x)
 		# x.shape = (N, 32, 122)
 		x = self.bn2(x)
 		# x.shape = (N, 32, 122)
-        x = F.relu(x)
+		x = F.relu(x)
 		# x.shape = (N, 32, 122)
-        x = self.pool2(x)
+		x = self.pool2(x)
 		# x.shape = (N, 32, 30)
-        x = self.conv3(x)
+		x = self.conv3(x)
 		# x.shape = (N, 64, 28)
 		x = self.bn3(x)
 		# x.shape = (N, 64, 28)
-        x = F.relu(x)
+		x = F.relu(x)
 		# x.shape = (N, 64, 28)
-        x = self.pool3(x)
+		x = self.pool3(x)
 		# x.shape = (N, 64, 7)
-        x = self.conv4(x)
+		x = self.conv4(x)
 		# x.shape = (N, 64, 5)
 		x = self.bn4(x)
 		# x.shape = (N, 64, 5)
-        x = F.relu(x)
+		x = F.relu(x)
 		# x.shape = (N, 64, 5)
-        x = self.pool4(x)
+		x = self.pool4(x)
 		# x.shape = (N, 64, 1)
-        x = F.avg_pool1d(x, x.shape[-1])
+		x = F.avg_pool1d(x, x.shape[-1])
 		# x.shape = (N, 64, 1)
-        x = x.permute(0, 2, 1)
+		x = x.permute(0, 2, 1)
 		# x.shape = (N, 1, 64)
-        x = self.fc1(x)
+		x = self.fc1(x)
 		# x.shape = (N, 1, 35)
 		x = F.log_softmax(x, dim=2)
 		# x.shape = (N, 1, 35)
-        return x
+		return x
 ```
 
 Let's see how each layer changes the dimension of the input. 
