@@ -10,3 +10,7 @@ The accuracy of the network is $71\%$. This result is not excellent, but we need
 - Some words may be similar to each other, making harder for the network to guess them. 
 
 Since the labels were 35, a random guess on the label has $2.86\%$ of probability to be correct. As our percentage is way higher, we can say our network works properly. 
+
+Here is an heatmap of the classification: 
+
+![](./img/heatmap.jpg)
