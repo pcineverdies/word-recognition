@@ -1,8 +1,8 @@
 ## The architecture
 
-The architecture is based on [[1](https://arxiv.org/abs/1610.00087)]. The paper is quite old (2016, which was much time ago for machine learning), but I thing it can be useful to dive into the topic. I started studying machine learning with the "School in AI", and I still have to master some basic concepts of it, such as the convolutional layers. Furthermore, the paper itself says that adding more convolutional layers makes training harder, but it outperforms networks based on spectrogram of audio.
+The architecture is based on [[1](https://arxiv.org/abs/1610.00087)]. The paper is quite old (2016, which was much time ago for machine learning), but I think it can be useful to dive into the topic. I started studying machine learning with the "School in AI", and I still have to master some basic concepts of it, such as the convolutional layers. Furthermore, the paper itself says that it outperforms networks based on spectrogram of audio.
 
-The network we adopted is M5, which is implemented in Keras in [[2](https://github.com/philipperemy/very-deep-convnets-raw-waveforms)].
+The network I adopted is M5, which is implemented in Keras in [[2](https://github.com/philipperemy/very-deep-convnets-raw-waveforms)].
 
 ```python
 class M5(nn.Module):
@@ -75,12 +75,12 @@ $$C_{\text{out}} = \text{n\_channel}$$
 
 $$L_{\text{out}} = \left[\frac{L_{\text{in}}+ 2 \cdot \text{padding} - \text{dilation} \cdot (\text{kernel\_size}-1) -1}{\text{stride}}+1\right]$$
 
-- `nn.BatchNorm1d`: Output has the same shape as input. 
-- `nn.MaxPool1d`: - `nn.Conv1d`: Input: $(C,L_{\text{in}})$; Output: $(C ,L_{\text{out}})$ where 
+- `nn.BatchNorm1d`: Output has the same shape as the Input. 
+- `nn.MaxPool1d`: Input: $(C,L_{\text{in}})$; Output: $(C ,L_{\text{out}})$ where 
 
 $$L_{\text{out}} = \left[\frac{L_{\text{in}}- \text{kernel\_size}}{\text{kernel\_size}}+1\right]$$
 
-- `F.log_softmax`: it is equivalent to a softmax followed by a logarithm (`log(softmax(x))`), but numerically more stable. The `dim` attribute tells on which dimension the operation is done. 
+- `F.log_softmax`: It is equivalent to a softmax followed by a logarithm (`log(softmax(x))`), but numerically more stable. The `dim` attribute tells on which dimension the operation is done. 
 
 The input of the network is a waveform of shape `(1, 8000)` (the first dimension should be the batch size, but we can ignore it). Using the above expressions, we can write the shape of `x` after each layer of the network. The shape of the output is clearly `(1, 35)`, corresponding to the number of different labels.
 
