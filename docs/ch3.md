@@ -79,7 +79,9 @@ $$L_{\text{out}} = \left[\frac{L_{\text{in}}+ 2 \cdot \text{padding} - \text{dil
 
 - `nn.MaxPool1d`: - `nn.Conv1d`: Input: $(C,L_{\text{in}})$; Output: $(C ,L_{\text{out}})$ where 
 
-$$L_{\text{out}} = \left[\frac{L_{\text{in}}- \text{kernel\_size}}{\text{kernel\_size}}+1\right]$$
+$$
+L_{\text{out}} = \left[\frac{L_{\text{in}}- \text{kernel\_size}}{\text{kernel\_size}}+1\right]
+$$
 
 - `F.log_softmax`: it is equivalent to a softmax followed by a logarithm (`log(softmax(x))`), but numerically more stable. The `dim` attribute tells on which dimension the operation is done. 
 
