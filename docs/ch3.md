@@ -71,23 +71,20 @@ Let's see how each layer changes the dimension of the input.
 
 - `nn.Conv1d`: Input: $(C_{\text{in}},L_{\text{in}})$; Output: $(C_{\text{out}},L_{\text{out}})$ where
 
-$$
+```math
 C_{\text{out}} = \text{n\_channel}
-
-\\
-\,
-\\
-
+```
+```math
 L_{\text{out}} = \left[\frac{L_{\text{in}}+ 2 \cdot \text{padding} - \text{dilation} \cdot (\text{kernel\_size}-1) -1}{\text{stride}}+1\right]
-$$
+```
 
 - `nn.BatchNorm1d`: Output has the same shape as input. 
 
 - `nn.MaxPool1d`: - `nn.Conv1d`: Input: $(C,L_{\text{in}})$; Output: $(C ,L_{\text{out}})$ where
 
-$$
+```math
 L_{\text{out}} = \left[\frac{L_{\text{in}}- \text{kernel\_size}}{\text{kernel\_size}}+1\right]
-$$
+```
 
 - `F.log_softmax`: it is equivalent to a softmax followed by a logarithm (`log(softmax(x))`), but numerically more stable. The `dim` attribute tells on which dimension the operation is done. 
 
