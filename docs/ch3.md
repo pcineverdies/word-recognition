@@ -71,9 +71,11 @@ Let's see how each layer changes the dimension of the input.
 
 - `nn.Conv1d`: Input: $(C_{\text{in}},L_{\text{in}})$; Output: $(C_{\text{out}},L_{\text{out}})$ where 
 
-$$C_{\text{out}} = \text{n\_channel}$$ 
+$$
+\text{Cout} = \text{n\_channel}
+$$ 
 
-$$L_{\text{out}} = \left[\frac{L_{\text{in}}+ 2 \cdot \text{padding} - \text{dilation} \cdot (\text{kernel\_size}-1) -1}{\text{stride}}+1\right]$$
+$$\text{Lout} = \left[\frac{\text{Lin}+ 2 \cdot \text{padding} - \text{dilation} \cdot (\text{kernel\_size}-1) -1}{\text{stride}}+1\right]$$
 
 - `nn.BatchNorm1d`: Output has the same shape as the Input. 
 - `nn.MaxPool1d`: Input: $(C,L_{\text{in}})$; Output: $(C ,L_{\text{out}})$ where 
